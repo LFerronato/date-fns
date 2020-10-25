@@ -21,7 +21,7 @@
 - **Front-end** read dates in local time.
   <br>  <br>
 ## Create utils custom functions to Front-end
-#### <a href="https://raw.githubusercontent.com/LFerronato/date-fns/web/src/utils/handleDates.ts">(.web\src\utils\handleDates.ts)</a>
+#### <a href="https://raw.githubusercontent.com/LFerronato/date-fns/master/web/src/utils/handleDates.ts">(.web\src\utils\handleDates.ts)</a>
 <br>
 
 ```js
