@@ -4,7 +4,7 @@ import axios from 'axios'
 import { formatToUTC, formatToLocal } from './utils/handleDates';
 
 const api = axios.create({
-  baseURL: 'http://157.245.4.66:3339'
+  baseURL: 'http://localhost:3333'
 })
 
 function App() {

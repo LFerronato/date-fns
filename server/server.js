@@ -1,7 +1,7 @@
 //https://blog.rocketseat.com.br/datas-e-horarios-javascript-date-fns-moment/
 import express from 'express'
 import cors from 'cors'
-import fns from 'date-fns'
+import tz from 'date-fns-tz'
 
 let database = []
 console.log(new Date());
@@ -11,11 +11,14 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+console.log(process.env.TZ);
+
 app.post('/', (req, resp) => {
   const { dates } = req.body
   console.log(dates);
   const newDates = dates.map(d => {
-    const parsedDate = fns.parseISO(d)
+    const parsedDate = tz.toDate(d, { timeZone: 'UTC' })
+    console.log(parsedDate);
     if (String(parsedDate) === 'Invalid Date') throw new Error()
 
     return parsedDate
