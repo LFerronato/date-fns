@@ -2,6 +2,7 @@
 import express from 'express'
 import cors from 'cors'
 import tz from 'date-fns-tz'
+import df from 'date-fns';
 
 let database = []
 console.log(new Date());
@@ -10,8 +11,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-console.log(process.env.TZ);
 
 app.post('/', (req, resp) => {
   const { dates } = req.body
@@ -31,6 +30,10 @@ app.post('/', (req, resp) => {
 app.get('/', (req, resp) => {
   console.log(database);
   return resp.json({ database })
+})
+app.get('/isBefore', (req, resp) => {
+  const result = df.isBefore(new Date('2020-01-01'), new Date())
+  return resp.json({ result })
 })
 
 app.listen(3333, () => {

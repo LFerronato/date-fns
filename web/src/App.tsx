@@ -3,6 +3,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios'
 import { formatToUTC, formatToLocal } from './utils/handleDates';
 
+import { add, format, formatISO, getDay, isSaturday } from 'date-fns'
+import { toDate, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz'
+
 const api = axios.create({
   baseURL: 'http://localhost:3333'
 })
@@ -33,6 +36,25 @@ function App() {
       .then(resp => console.log(resp.status))
   }, [selectedDate])
 
+  const handleFillClasses = useCallback(() => {
+    console.clear()
+    const firstClass = '2020-11-21'
+
+    console.log('@@ firstClass:', firstClass)
+    console.log('tz-zonedTimeToUtc:', zonedTimeToUtc(firstClass, 'UTC'))
+    console.log('tz-utcToZonedTime:', utcToZonedTime(firstClass, 'UTC'))
+    console.log('tz-toDate:', toDate(firstClass))
+    console.log('tz-toDate-UTC:', toDate(firstClass, { timeZone: 'UTC' }))
+    console.log('-')
+    console.log('getDay', getDay(toDate(firstClass)))
+    console.log('format', format(toDate(firstClass), 'dd'))
+    console.log('isSaturday', isSaturday(toDate(firstClass)))
+
+    formatISO(add(toDate(firstClass), { days: 7 }), {
+      representation: 'date',
+    })
+  }, [])
+
   return (
     <div className="App">
       <h2>retorno</h2>
@@ -47,6 +69,7 @@ function App() {
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)} />
       <button onClick={handleSubmit} >Cadastrar</button>
+      <button onClick={handleFillClasses} >Outro Exemplo (log)</button>
     </div>
   );
 }
